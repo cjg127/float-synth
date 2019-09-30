@@ -616,6 +616,11 @@ bool SynthEngine::processMIDIEvent(midiEvent& event)
 		{
 			midiInputData->globalMIDIData[kChannelPressure] = event.midiData2;
 		}
+		if (event.midiMessage == POLY_PRESSURE)
+		{
+			midiInputData->globalMIDIData[kPolyPressure] = event.midiData2;
+		}
+	
 
 		// --- NOTE: this synth has GUI controls for items that may also be transmitted via SYSEX-MIDI
 		//
