@@ -12,8 +12,17 @@ const ModOutputData Expression::renderModulatorOutput()
 {
 	ModOutputData expression_output_data;
 
+	unsigned int input = 0;
 	// should be done in update?
-	unsigned int input = midiInputData->ccMIDIData[ccNum];
+	if (parameters->type == ExpressionType::kCC)
+	{
+		input = midiInputData->ccMIDIData[ccNum];
+	}
+	else if (parameters->type == ExpressionType::kChannelPressure)
+	{
+		// input = midiInputData->globalMIDIData
+	}
+	
 	
 	double raw = mapUINTToDouble(input, 0, 127, 0.0, 1.0);
 
