@@ -30,10 +30,10 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 	// this is where the components are made
 	lfo2.reset(new SynthLFO(midiInputData, parameters->lfo2Parameters));
 
-	expX.reset(new Expression(midiInputData, parameters->expXParameters, 113));
-	expY.reset(new Expression(midiInputData, parameters->expYParameters, 114));
+	expX.reset(new Expression(midiInputData, parameters->expXParameters));
+	expY.reset(new Expression(midiInputData, parameters->expYParameters));
 
-	expZ.reset(new Expression(midiInputData, parameters->expZParameters, 115)); // TODO: create constructor for mode
+	expZ.reset(new Expression(midiInputData, parameters->expZParameters));
 
 	ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
 

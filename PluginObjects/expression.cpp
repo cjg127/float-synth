@@ -16,7 +16,7 @@ const ModOutputData Expression::renderModulatorOutput()
 	// should be done in update?
 	if (parameters->type == ExpressionType::kCC)
 	{
-		input = midiInputData->ccMIDIData[ccNum];
+		input = midiInputData->ccMIDIData[parameters->ccNumber];
 	}
 	else if (parameters->type == ExpressionType::kChannelPressure)
 	{

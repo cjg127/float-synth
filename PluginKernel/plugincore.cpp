@@ -307,7 +307,9 @@ bool PluginCore::initialize(PluginInfo& pluginInfo)
 	// --- add one-time init stuff here
 	SynthEngineParameters engineParams = synthEngine.getParameters();
 	engineParams.voiceParameters->expXParameters->type = ExpressionType::kCC;
+	engineParams.voiceParameters->expXParameters->ccNumber = 113;
 	engineParams.voiceParameters->expYParameters->type = ExpressionType::kCC;
+	engineParams.voiceParameters->expYParameters->ccNumber = 114;
 	engineParams.voiceParameters->expZParameters->type = ExpressionType::kChannelPressure;
 
 	return true;

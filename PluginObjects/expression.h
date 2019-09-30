@@ -7,7 +7,8 @@ enum class ExpressionType
 {kCC, kChannelPressure};
 
 enum {
-	kEXPSmoothOutput
+	kEXPSmoothOutput,
+	kEXPRawOutput
 };
 
 struct ExpressionParameters
@@ -20,12 +21,14 @@ struct ExpressionParameters
 
 		slew = params.slew;
 		type = params.type;
+		ccNumber = params.ccNumber;
 
 		return *this;
 	}
 
 	// --- individual parameters
 	double slew = 0.0;
+	int ccNumber = 0;
 	ExpressionType type = ExpressionType::kCC;
 };
 
@@ -40,10 +43,9 @@ Outputs: contains 1 output
 class Expression : public ISynthModulator
 {
 public:
-	Expression(const std::shared_ptr<MidiInputData> _midiInputData, std::shared_ptr<ExpressionParameters> _parameters, int _ccNum)
+	Expression(const std::shared_ptr<MidiInputData> _midiInputData, std::shared_ptr<ExpressionParameters> _parameters)
 		: midiInputData(_midiInputData)
-		, parameters(_parameters) 
-		, ccNum(_ccNum) {
+		, parameters(_parameters) {
 		srand(time(NULL)); // --- seed random number generator
 	}	
 
@@ -85,5 +87,4 @@ protected:
 	SlewLimiter smoother;
 
 	double sampleRate = 0.0;
-	int ccNum = 0;
 };
