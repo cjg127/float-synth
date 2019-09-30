@@ -26,6 +26,8 @@ const ModOutputData Expression::renderModulatorOutput()
 	
 	double raw = mapUINTToDouble(input, 0, 127, 0.0, 1.0);
 
+	expression_output_data.modulationOutputs[kEXPRawOutput] = raw;
+
 	double processed = smoother.doSlewLimiter(raw); 
 
 	expression_output_data.modulationOutputs[kEXPSmoothOutput] = processed;
