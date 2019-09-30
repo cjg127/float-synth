@@ -611,6 +611,10 @@ bool SynthEngine::processMIDIEvent(midiEvent& event)
 			// --- store CC event in globally shared array
 			midiInputData->ccMIDIData[event.midiData1] = event.midiData2;
 		}
+		if (event.midiMessage == CHANNEL_PRESSURE)
+		{
+			midiInputData->globalMIDIData[kChannelPressure] = event.midiData2;
+		}
 
 		// --- NOTE: this synth has GUI controls for items that may also be transmitted via SYSEX-MIDI
 		//

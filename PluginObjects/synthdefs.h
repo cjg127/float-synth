@@ -330,6 +330,9 @@ enum globalMIDI {
 	kCurrentMIDINoteVelocity,		/* 7 bits 0 ->127 */
 	kLastMIDINoteNumber,			/* 7 bits 0 ->127 */
 	kLastMIDINoteVelocity,			/* 7 bits 0 ->127 */
+
+	kChannelPressure,
+
 	kMIDIPitchBendDataLSB,			/* 14 bit LSB */
 	kMIDIPitchBendDataMSB,			/* 14 bit MSB */
 	kMIDIMasterPBSensCoarse,		/* MSB: 7 bits 0 ->127 Semitones */

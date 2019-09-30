@@ -20,7 +20,7 @@ const ModOutputData Expression::renderModulatorOutput()
 	}
 	else if (parameters->type == ExpressionType::kChannelPressure)
 	{
-		// input = midiInputData->globalMIDIData
+		input = midiInputData->globalMIDIData[kChannelPressure];
 	}
 	
 	
