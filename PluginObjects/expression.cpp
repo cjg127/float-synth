@@ -18,9 +18,9 @@ const ModOutputData Expression::renderModulatorOutput()
 	{
 		input = midiInputData->ccMIDIData[parameters->ccNumber];
 	}
-	else if (parameters->type == ExpressionType::kChannelPressure)
+	else if (parameters->type == ExpressionType::kPressure)
 	{
-		input = midiInputData->globalMIDIData[kChannelPressure];
+		input = midiInputData->globalMIDIData[kPolyPressure];
 	}
 	
 	

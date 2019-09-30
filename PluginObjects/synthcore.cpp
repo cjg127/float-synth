@@ -356,13 +356,14 @@ SynthEngine::SynthEngine()
 	// Expression Routings
 	parameters.setMM_HardwiredRouting(kEXP_X, kOsc1_fo);
 	parameters.setMM_HardwiredRouting(kEXP_Y, kLFO1_fo);
+	parameters.setMM_HardwiredRouting(kEXP_Z, kDCA_AmpMod);
 
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 
 	// --- EG3 -> Wave Morph??
 
 	// --- set amp mod default value to prevent silence accidentally
-	parameters.setMM_DestDefaultValue(kDCA_AmpMod, 1.0);
+	// parameters.setMM_DestDefaultValue(kDCA_AmpMod, 1.0);
 
 	// --- create the smart pointers
 	for (unsigned int i = 0; i < MAX_VOICES; i++)

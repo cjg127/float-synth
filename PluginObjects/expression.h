@@ -4,7 +4,7 @@
 #include "SlewLimiter.h"
 
 enum class ExpressionType
-{kCC, kChannelPressure};
+{kCC, kPressure};
 
 enum {
 	kEXPSmoothOutput,
