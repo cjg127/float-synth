@@ -136,6 +136,8 @@ struct SynthVoiceParameters
 		lfo2Parameters = params.lfo2Parameters;
 
 		expXParameters = params.expXParameters;
+		expYParameters = params.expYParameters;
+		expZParameters = params.expZParameters;
 
 		ampEGParameters = params.ampEGParameters;
 
@@ -165,6 +167,8 @@ struct SynthVoiceParameters
 	std::shared_ptr<SynthLFOParameters> lfo1Parameters = std::make_shared<SynthLFOParameters>();
 	std::shared_ptr<SynthLFOParameters> lfo2Parameters = std::make_shared<SynthLFOParameters>();
 	std::shared_ptr<ExpressionParameters> expXParameters = std::make_shared<ExpressionParameters>();
+	std::shared_ptr<ExpressionParameters> expYParameters = std::make_shared<ExpressionParameters>();
+	std::shared_ptr<ExpressionParameters> expZParameters = std::make_shared<ExpressionParameters>();
 
 	// --- EGs
 	std::shared_ptr<EGParameters> ampEGParameters = std::make_shared<EGParameters>();
@@ -345,6 +349,8 @@ protected:
 		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
 
 		modSourceData[kEXP_X] = &expXOutput.modulationOutputs[kEXPSmoothOutput];
+		modSourceData[kEXP_Y] = &expYOutput.modulationOutputs[kEXPSmoothOutput];
+		modSourceData[kEXP_Z] = &expZOutput.modulationOutputs[kEXPSmoothOutput];
 
 		// --- destinations
 		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
@@ -363,6 +369,8 @@ protected:
 	ModOutputData lfo1Output;
 	ModOutputData lfo2Output;
 	ModOutputData expXOutput;
+	ModOutputData expYOutput;
+	ModOutputData expZOutput;
 	ModOutputData ampEGOutput;
 
 	// --- mod source data: --- filter ---
@@ -390,6 +398,8 @@ protected:
 	std::unique_ptr<SynthLFO> lfo1;
 	std::unique_ptr<SynthLFO> lfo2;
 	std::unique_ptr<Expression> expX;
+	std::unique_ptr<Expression> expY;
+	std::unique_ptr<Expression> expZ;
 
 	// --- EGs
 	std::unique_ptr<EnvelopeGenerator> ampEG;

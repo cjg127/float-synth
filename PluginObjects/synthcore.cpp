@@ -31,6 +31,9 @@ SynthVoice::SynthVoice(const std::shared_ptr<MidiInputData> _midiInputData,
 	lfo2.reset(new SynthLFO(midiInputData, parameters->lfo2Parameters));
 
 	expX.reset(new Expression(midiInputData, parameters->expXParameters, 113));
+	expY.reset(new Expression(midiInputData, parameters->expYParameters, 114));
+
+	expZ.reset(new Expression(midiInputData, parameters->expZParameters, 115)); // TODO: create constructor for mode
 
 	ampEG.reset(new EnvelopeGenerator(midiInputData, parameters->ampEGParameters));
 
@@ -71,6 +74,8 @@ bool SynthVoice::reset(double _sampleRate)
 	lfo2->reset(_sampleRate);
 
 	expX->reset(_sampleRate);
+	expY->reset(_sampleRate);
+	expZ->reset(_sampleRate);
 
 	ampEG->reset(_sampleRate);
 
@@ -149,6 +154,12 @@ const SynthRenderData SynthVoice::renderAudioOutput()
 
 	expX->update(updateAllModRoutings);
 	expXOutput = expX->renderModulatorOutput();
+
+	expY->update(updateAllModRoutings);
+	expYOutput = expY->renderModulatorOutput();
+
+	expZ->update(updateAllModRoutings);
+	expZOutput = expZ->renderModulatorOutput();
 	
 	// --- update/render (add more here)
 	ampEG->update(updateAllModRoutings);
@@ -344,6 +355,7 @@ SynthEngine::SynthEngine()
 
 	// Expression Routings
 	parameters.setMM_HardwiredRouting(kEXP_X, kOsc1_fo);
+	parameters.setMM_HardwiredRouting(kEXP_Y, kLFO1_fo);
 
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 
