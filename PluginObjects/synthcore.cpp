@@ -363,7 +363,7 @@ SynthEngine::SynthEngine()
 	// --- EG3 -> Wave Morph??
 
 	// --- set amp mod default value to prevent silence accidentally
-	// parameters.setMM_DestDefaultValue(kDCA_AmpMod, 1.0);
+	parameters.setMM_DestDefaultValue(kDCA_AmpMod, 1.0);
 
 	// --- create the smart pointers
 	for (unsigned int i = 0; i < MAX_VOICES; i++)
