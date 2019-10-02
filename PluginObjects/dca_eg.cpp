@@ -8,9 +8,14 @@ bool DCA::doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNote
 {
 	// --- store our MIDI velocity
 	midiVelocityGain = mmaMIDItoAtten(midiNoteVelocity);
-
 	// --- set flag (needed?)
 	noteOn = true;
+
+	noteTimer.resetTimer();
+	double sampHoldMod = bipolarToUnipolar(modulators->modulationInputs[kAuxBipolarMod_1]);
+	quantizeSubdivision(sampHoldMod);
+	double divisionSamples = subdivisionToSamples(sampleRate, sampHoldMod, bpm);
+	noteTimer.setTargetValueInSamples(divisionSamples);
 
 	return true;
 }
@@ -55,10 +60,32 @@ bool DCA::update(bool updateAllModRoutings)
 		gainRaw = 0.0; // OFF
 
 	//
-	double sampHoldMod = modulators->modulationInputs[kAuxBipolarMod_1];
-	if (sampHoldMod < 0.0)
+	//double sampHoldMod = modulators->modulationInputs[kAuxBipolarMod_1];
+	//if (sampHoldMod < 0.0)
+	//{
+	//	gainRaw = 0.0;
+	//}
+	double sampHoldMod = bipolarToUnipolar(modulators->modulationInputs[kAuxBipolarMod_1]);
+
+	quantizeSubdivision(sampHoldMod);
+
+	double divisionSamples = subdivisionToSamples(sampleRate, sampHoldMod, bpm);
+
+
+	if (noteTimer.timerExpired)
 	{
 		gainRaw = 0.0;
+		if (noteTimer.getTick == divisionSamples) // right as timer is up
+		{
+			shortPause.setTargetValueInSamples(1000);
+			shortPause.resetTimer();
+		}
+
+		if (shortPause.timerExpired)
+		{
+			noteTimer.setTargetValueInSamples(divisionSamples);
+			noteTimer.resetTimer();
+		}
 	}
 
 	// --- is mute ON? 0 = OFF, 1 = ON
