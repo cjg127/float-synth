@@ -400,6 +400,19 @@ inline double msecToSamples(double sampleRate, double timeMSec)
 	return sampleRate*(timeMSec / 1000.0);;
 }
 
+/**
+\struct subdivisionToSamples
+\ingroup SynthDefs
+\brief convert subdivision to samples
+*/
+inline double subdivisionToSamples(double sampleRate, double fraction, double bpm) // fraction of 1 whole note
+{
+	double wholeMs = 240000.0 / bpm;
+	double sumMs = fraction * wholeMs;
+	double samples = msecToSamples(sampleRate, sumMs);
+	return samples;
+}
+
 
 /**
 \struct boundMIDIValueByte
