@@ -55,10 +55,11 @@ public:
 	// --- set sample rate, then update coeffs
 	virtual bool reset(double _sampleRate)
 	{
+		sampleRate = _sampleRate;
 		gainRaw = 1.0;			// --- unity
 		panLeftGain = 0.707;	// --- center
 		panRightGain = 0.707;	// --- center
-
+		noteTimer.resetTimer();
 		return true;
 	}
 
@@ -91,6 +92,9 @@ public:
 		else if (audioData->numInputChannels == 2 && audioData->numOutputChannels == 2)
 			audioData->outputs[1] = audioData->inputs[1] * gainRaw  * panRightGain;
 
+		noteTimer.advanceTimer();
+		shortPause.advanceTimer();
+
 		return true;
 	}
 
@@ -115,6 +119,8 @@ protected:
 	// --- set of double[MAX_MODULATION_CHANNELS]
 	std::shared_ptr<ModInputData> modulators = std::make_shared<ModInputData>();
 
+	double sampleRate = 0.0;
+
 	double gainRaw = 1.0;			///< the final raw gain value
 	double panLeftGain = 0.707;		///< left channel gain
 	double panRightGain = 0.707;	///< right channel gain
@@ -125,6 +131,9 @@ protected:
 
 	// --- note on flag
 	bool noteOn = false;
+
+	Timer noteTimer;
+	Timer shortPause;
 };
 
 // ----------------- ENVELOPE GENERATOR ----------------------------------- //
