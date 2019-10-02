@@ -67,31 +67,34 @@ bool DCA::update(bool updateAllModRoutings)
 	//}
 
 
-	//double sampHoldMod = bipolarToUnipolar(modulators->modulationInputs[kAuxBipolarMod_1]);
+	double sampHoldMod = modulators->modulationInputs[kAuxUnipolarMod_1];
 
-	//quantizeSubdivision(sampHoldMod);
+	quantizeSubdivision(sampHoldMod);
 
-	//double divisionSamples = subdivisionToSamples(sampleRate, sampHoldMod, 120); //TODO: make bpm dynamic
+	double divisionSamples = subdivisionToSamples(sampleRate, sampHoldMod, 120); //TODO: make bpm dynamic
 
-	//if (noteTimer.timerExpired())
-	//{
-	//	gainRaw = 0.0;
-	//	if (noteTimer.getTick() == noteTimer.getTargetValueInSamples()) // right as timer is up
-	//	{
-	//		shortPause.setTargetValueInSamples(10000);
-	//		shortPause.resetTimer();
-	//	}
+	if (noteTimer.timerExpired())
+	{
+		gainRaw = 0.0;	
+		if (shortPause.timerExpired())
+		{
+			noteTimer.setTargetValueInSamples(divisionSamples - 10000);
+			noteTimer.resetTimer();
+		}
+	}
 
-	//	if (shortPause.timerExpired())
-	//	{
-	//		noteTimer.setTargetValueInSamples(divisionSamples);
-	//		noteTimer.resetTimer();
-	//	}
-	//}
-	//else
-	//{
-	//	gainRaw = 1.0;
-	//}
+	if (noteTimer.getTick() == noteTimer.getTargetValueInSamples()) // right as timer is up
+	{
+		shortPause.setTargetValueInSamples(10000);
+		shortPause.resetTimer();
+	}
+
+	
+
+	else
+	{
+		gainRaw = 1.0;
+	}
 
 	// --- is mute ON? 0 = OFF, 1 = ON
 	if (parameters->mute) gainRaw = 0.0;

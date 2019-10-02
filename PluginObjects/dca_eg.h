@@ -72,6 +72,9 @@ public:
 	// --- note pass by pointer to avoid copying data
 	bool processSynthAudio(SynthProcessorData* audioData)
 	{
+
+		noteTimer.advanceTimer();
+		shortPause.advanceTimer();
 		// --- make sure we have input and outputs
 		if (audioData->numInputChannels == 0 || audioData->numOutputChannels == 0)
 			return false;
@@ -92,8 +95,6 @@ public:
 		else if (audioData->numInputChannels == 2 && audioData->numOutputChannels == 2)
 			audioData->outputs[1] = audioData->inputs[1] * gainRaw  * panRightGain;
 
-		noteTimer.advanceTimer();
-		shortPause.advanceTimer();
 
 		return true;
 	}

@@ -350,7 +350,7 @@ SynthEngine::SynthEngine()
 	parameters.setMM_HardwiredRouting(kEG1_Normal, kDCA_EGMod);
 
 	// --- example of another hardwired routing
-	parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
+	// parameters.setMM_HardwiredRouting(kLFO1_Normal, kOsc1_fo);
 	parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_fo);
 
 	// Expression Routings

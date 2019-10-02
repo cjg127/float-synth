@@ -363,7 +363,7 @@ protected:
 
 		// modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
 
-		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxBipolarMod_1]);
+		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxUnipolarMod_1]);
 	}
 
 	// --- arrays to hold source/destination

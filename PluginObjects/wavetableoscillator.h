@@ -9,6 +9,7 @@
 
 // --- .h file examples
 #include "analog_square_1.h"
+#include "analogsaw.h"
 
 
 // --- enum for slots in 32-waveform vector (array)
