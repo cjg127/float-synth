@@ -86,6 +86,7 @@ enum modDestination
 {
 	// --- oscillator pitch (add more here)
 	kOsc1_fo,
+	kOsc1_fo_ExpMod,
 
 	kLFO1_fo,
 	kLFO1_depth,
@@ -98,6 +99,7 @@ enum modDestination
 	// --- DCA (add more here)
 	kDCA_EGMod, // EG Input
 	kDCA_AmpMod,// Amp Mod Input
+	kDCA_SampleHoldMod,
 
 	// --- remain last, will always be the size of modulator array
 	kNumModDestinations
@@ -355,10 +357,13 @@ protected:
 		// --- destinations
 		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
 		modDestinationData[kOsc1_fo] = &(osc1->getModulators()->modulationInputs[kBipolarMod]);
+		modDestinationData[kOsc1_fo_ExpMod] = &(osc1->getModulators()->modulationInputs[kUnipolarMod]);
 		modDestinationData[kDCA_EGMod] = &(dca->getModulators()->modulationInputs[kEGMod]);
 		modDestinationData[kDCA_AmpMod] = &(dca->getModulators()->modulationInputs[kMaxDownAmpMod]);
 
-		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
+		// modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
+
+		modDestinationData[kDCA_SampleHoldMod] = &(dca->getModulators()->modulationInputs[kAuxBipolarMod_1]);
 	}
 
 	// --- arrays to hold source/destination

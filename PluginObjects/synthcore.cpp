@@ -354,9 +354,12 @@ SynthEngine::SynthEngine()
 	parameters.setMM_HardwiredRouting(kLFO2_Normal, kLFO1_fo);
 
 	// Expression Routings
-	parameters.setMM_HardwiredRouting(kEXP_X, kOsc1_fo);
+	parameters.setMM_HardwiredRouting(kEXP_X, kOsc1_fo_ExpMod);
 	parameters.setMM_HardwiredRouting(kEXP_Y, kLFO1_fo);
 	parameters.setMM_HardwiredRouting(kEXP_Z, kDCA_AmpMod);
+
+	//
+	parameters.setMM_HardwiredRouting(kLFO1_Normal, kDCA_SampleHoldMod);
 
 	// --- EG2 -> Filter 1 (and 2) Fc ??
 

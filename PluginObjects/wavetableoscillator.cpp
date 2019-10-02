@@ -283,12 +283,15 @@ bool WaveTableOsc::update(bool updateAllModRoutings)
 	// --- calculate combined tuning offsets by simply adding values in semitones
 	double fmodInput = modulators->modulationInputs[kBipolarMod] * kOscBipolarModRangeSemitones;
 
+	double expModInput = modulators->modulationInputs[kUnipolarMod] * kOscExpModRangeSemitones;
+
 	// --- do the portamento
 	double glideMod = glideModulator.getNextGlideModSemitones();
 
 	// --- calculate combined tuning offsets by simply adding values in semitones
 	double currentPitchModSemitones = glideMod + 
 		fmodInput +
+		expModInput +
 		midiPitchBend +
 		masterTuning +
 		(parameters->detuneOctaves * 12) +						/* octave*12 = semitones */
