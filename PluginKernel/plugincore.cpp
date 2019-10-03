@@ -144,10 +144,24 @@ bool PluginCore::initPluginParameters()
 	addPluginParameter(piParam);
 
 	// --- continuous control: X Slew
-	piParam = new PluginParameter(controlID::xSlew, "X Slew", "Units", controlVariableType::kDouble, 0.000000, 1.000000, 0.000000, taper::kLinearTaper);
+	piParam = new PluginParameter(controlID::xSlew, "X Slew", "Units", controlVariableType::kDouble, 0.000000, 0.999000, 0.000000, taper::kLinearTaper);
 	piParam->setParameterSmoothing(false);
 	piParam->setSmoothingTimeMsec(100.00);
 	piParam->setBoundVariable(&xSlew, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Y Slew
+	piParam = new PluginParameter(controlID::ySlew, "Y Slew", "Units", controlVariableType::kDouble, 0.000000, 0.999000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&ySlew, boundVariableType::kDouble);
+	addPluginParameter(piParam);
+
+	// --- continuous control: Z Slew
+	piParam = new PluginParameter(controlID::zSlew, "Z Slew", "Units", controlVariableType::kDouble, 0.000000, 0.999000, 0.000000, taper::kLinearTaper);
+	piParam->setParameterSmoothing(false);
+	piParam->setSmoothingTimeMsec(100.00);
+	piParam->setBoundVariable(&zSlew, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
 	// --- Aux Attributes
@@ -213,6 +227,16 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::xSlew, auxAttribute);
+
+	// --- controlID::ySlew
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::ySlew, auxAttribute);
+
+	// --- controlID::zSlew
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(2147483648);
+	setParamAuxAttribute(controlID::zSlew, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -293,6 +317,8 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->lfo2Parameters->outputAmplitude = lfo2Depth;
 
 	engineParams.voiceParameters->expXParameters->slew = xSlew;
+	engineParams.voiceParameters->expXParameters->slew = ySlew;
+	engineParams.voiceParameters->expZParameters->slew = zSlew;
 
 }
 
@@ -648,6 +674,8 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::lfo2Frequency_Hz, 0.020000);
 	setPresetParameter(preset->presetParameters, controlID::lfo2Depth, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::xSlew, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::ySlew, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::zSlew, 0.000000);
 	addPreset(preset);
 
 

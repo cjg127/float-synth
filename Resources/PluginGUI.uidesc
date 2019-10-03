@@ -33,6 +33,8 @@
 		<control-tag name="controlID::lfo2Frequency_Hz" tag="32" />
 		<control-tag name="controlID::lfo2Depth" tag="33" />
 		<control-tag name="controlID::xSlew" tag="2" />
+		<control-tag name="controlID::ySlew" tag="3" />
+		<control-tag name="controlID::zSlew" tag="4" />
 		<control-tag name="XY_TRACKPAD" tag="131073" />
 		<control-tag name="VECTOR_JOYSTICK" tag="131074" />
 		<control-tag name="PRESET_NAME" tag="131075" />

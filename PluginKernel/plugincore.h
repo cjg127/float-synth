@@ -32,7 +32,9 @@ enum controlID {
 	lfo2Waveform = 30,
 	lfo2Frequency_Hz = 32,
 	lfo2Depth = 33,
-	xSlew = 2
+	xSlew = 2,
+	ySlew = 3,
+	zSlew = 4
 };
 
 	// **--0x0F1F--**
@@ -134,6 +136,8 @@ private:
 	double lfo2Frequency_Hz = 0.0;
 	double lfo2Depth = 0.0;
 	double xSlew = 0.0;
+	double ySlew = 0.0;
+	double zSlew = 0.0;
 
 	// --- Discrete Plugin Variables 
 	int lfo1Waveform = 0;
