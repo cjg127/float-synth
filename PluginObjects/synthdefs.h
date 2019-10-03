@@ -410,19 +410,22 @@ inline double subdivisionToSamples(double sampleRate, double fraction, double bp
 	double wholeMs = 240000.0 / bpm;
 	double sumMs = fraction * wholeMs;
 	double samples = msecToSamples(sampleRate, sumMs);
+	boundValue(samples, 0, msecToSamples(sampleRate, wholeMs));
 	return samples;
 }
 
 inline double quantizeSubdivision(double fraction)
 {
 	if (fraction > 0.5)
-		return 1.0;
-	else if (fraction <= 0.5 && fraction > 0.25)
 		return 0.5;
-	else if (fraction <= 0.25 && fraction > 0.125)
+	else if (fraction <= 0.5 && fraction > 0.25)
 		return 0.25;
-	else if (fraction <= 0.125)
+	else if (fraction <= 0.25 && fraction > 0.125)
 		return 0.125;
+	else if (fraction <= 0.125)
+		return 0.0625;
+	else
+		return 0.0625;
 }
 
 

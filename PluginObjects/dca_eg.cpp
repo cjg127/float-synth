@@ -11,10 +11,11 @@ bool DCA::doNoteOn(double midiPitch, uint32_t _midiNoteNumber, uint32_t midiNote
 	// --- set flag (needed?)
 	noteOn = true;
 
+	noteFlag = true;
+	restFlag = true;
 	noteTimer.resetTimer();
-	double sampHoldMod = bipolarToUnipolar(modulators->modulationInputs[kAuxBipolarMod_1]);
-	quantizeSubdivision(sampHoldMod);
-	double divisionSamples = subdivisionToSamples(sampleRate, sampHoldMod, 120); //TODO: make bpm dynamic
+	// first note hard set to q note
+	double divisionSamples = subdivisionToSamples(sampleRate, 0.25, 120); //TODO: make bpm dynamic
 	noteTimer.setTargetValueInSamples(divisionSamples);
 
 	return true;
@@ -66,31 +67,32 @@ bool DCA::update(bool updateAllModRoutings)
 	//	gainRaw = 0.0;
 	//}
 
-
-	double sampHoldMod = modulators->modulationInputs[kAuxUnipolarMod_1];
-
-	quantizeSubdivision(sampHoldMod);
-
-	double divisionSamples = subdivisionToSamples(sampleRate, sampHoldMod, 120); //TODO: make bpm dynamic
-
 	if (noteTimer.timerExpired())
 	{
 		gainRaw = 0.0;	
-		if (shortPause.timerExpired())
+		if (noteFlag) // right as timer is up
 		{
-			noteTimer.setTargetValueInSamples(divisionSamples - 10000);
-			noteTimer.resetTimer();
+			restTimer.setTargetValueInSamples(10000);
+			restTimer.resetTimer();
+			noteFlag = false;
+			restFlag = true;
+		}
+		int s = restTimer.getTick();
+		if (restTimer.timerExpired())
+		{
+			if (restFlag)
+			{
+				double sampHoldMod = modulators->modulationInputs[kAuxUnipolarMod_1];
+				quantizeSubdivision(sampHoldMod);
+				double divisionSamples = subdivisionToSamples(sampleRate, sampHoldMod, 120); //TODO: make bpm dynamic
+				boundValue(divisionSamples, 0, 900000);
+				noteTimer.setTargetValueInSamples(divisionSamples - 10000);
+				noteTimer.resetTimer();
+				restFlag = false;
+			}
+			noteFlag = true;
 		}
 	}
-
-	if (noteTimer.getTick() == noteTimer.getTargetValueInSamples()) // right as timer is up
-	{
-		shortPause.setTargetValueInSamples(10000);
-		shortPause.resetTimer();
-	}
-
-	
-
 	else
 	{
 		gainRaw = 1.0;

@@ -74,7 +74,7 @@ public:
 	{
 
 		noteTimer.advanceTimer();
-		shortPause.advanceTimer();
+		restTimer.advanceTimer();
 		// --- make sure we have input and outputs
 		if (audioData->numInputChannels == 0 || audioData->numOutputChannels == 0)
 			return false;
@@ -134,7 +134,9 @@ protected:
 	bool noteOn = false;
 
 	Timer noteTimer;
-	Timer shortPause;
+	bool noteFlag;
+	Timer restTimer;
+	bool restFlag;
 };
 
 // ----------------- ENVELOPE GENERATOR ----------------------------------- //

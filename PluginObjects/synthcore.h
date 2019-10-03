@@ -53,6 +53,7 @@ enum modSource
 	// --- LFOs here
 	kLFO1_Normal,
 	kLFO1_QuadPhase,
+	kLFO1_Unipolar, 
 
 	kLFO2_Normal,
 	kLFO2_QuadPhase,
@@ -342,6 +343,7 @@ protected:
 	{
 		// --- wire the source array slots
 		modSourceData[kLFO1_Normal] = &lfo1Output.modulationOutputs[kLFONormalOutput];
+		modSourceData[kLFO1_Unipolar] = &lfo1Output.modulationOutputs[kUnipolarOutputFromMin];
 		modSourceData[kLFO1_QuadPhase] = &lfo1Output.modulationOutputs[kLFOQuadPhaseOutput];
 		modSourceData[kLFO2_Normal] = &lfo2Output.modulationOutputs[kLFONormalOutput];
 		modSourceData[kLFO2_QuadPhase] = &lfo2Output.modulationOutputs[kLFOQuadPhaseOutput];
