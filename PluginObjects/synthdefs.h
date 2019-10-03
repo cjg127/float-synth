@@ -83,7 +83,7 @@ const double kDCA_Amp_ModRange = 1.0;			// --> unipolar, 100%
 const double kDCA_Pan_ModRange = 1.0;			// --> unipolar, 100%
 
 const double kOscBipolarModRangeSemitones = 12.0;	// --> unipolar, 100%
-const double kOscExpModRangeSemitones = 24.0;
+const double kOscExpModRangeSemitones = 48.0;
 #define ARC4RANDOMMAX 4294967295 // (2^32 - 1)
 #define EXTRACT_BITS(the_val, bits_start, bits_len) ((the_val >> (bits_start - 1)) & ((1 << bits_len) - 1))
 

@@ -164,6 +164,12 @@ bool PluginCore::initPluginParameters()
 	piParam->setBoundVariable(&zSlew, boundVariableType::kDouble);
 	addPluginParameter(piParam);
 
+	// --- discrete control: Random Length
+	piParam = new PluginParameter(controlID::randomLengthEnable, "Random Length", "SWITCH OFF,SWITCH ON", "SWITCH OFF");
+	piParam->setBoundVariable(&randomLengthEnable, boundVariableType::kInt);
+	piParam->setIsDiscreteSwitch(true);
+	addPluginParameter(piParam);
+
 	// --- Aux Attributes
 	AuxParameterAttribute auxAttribute;
 
@@ -237,6 +243,11 @@ bool PluginCore::initPluginParameters()
 	auxAttribute.reset(auxGUIIdentifier::guiControlData);
 	auxAttribute.setUintAttribute(2147483648);
 	setParamAuxAttribute(controlID::zSlew, auxAttribute);
+
+	// --- controlID::randomLengthEnable
+	auxAttribute.reset(auxGUIIdentifier::guiControlData);
+	auxAttribute.setUintAttribute(1073741824);
+	setParamAuxAttribute(controlID::randomLengthEnable, auxAttribute);
 
 
 	// **--0xEDA5--**
@@ -319,6 +330,8 @@ void PluginCore::updateParameters()
 	engineParams.voiceParameters->expXParameters->slew = xSlew;
 	engineParams.voiceParameters->expXParameters->slew = ySlew;
 	engineParams.voiceParameters->expZParameters->slew = zSlew;
+
+	engineParams.voiceParameters->dcaParameters->randomNotes = randomLengthEnable;
 
 }
 
@@ -676,6 +689,7 @@ bool PluginCore::initPluginPresets()
 	setPresetParameter(preset->presetParameters, controlID::xSlew, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::ySlew, 0.000000);
 	setPresetParameter(preset->presetParameters, controlID::zSlew, 0.000000);
+	setPresetParameter(preset->presetParameters, controlID::randomLengthEnable, -0.000000);
 	addPreset(preset);
 
 

@@ -47,12 +47,14 @@ bool DCA::update(bool updateAllModRoutings)
 	// --- apply Max Down modulator
 	double ampMod = doUnipolarModulationFromMax(modulators->modulationInputs[kMaxDownAmpMod], 0.0, 1.0);
 
+	double expression_mod = modulators->modulationInputs[kUnipolarMod];
+
 	// --- support for MIDI Volume CC
 	double midiVolumeGain = mmaMIDItoAtten(midiInputData->ccMIDIData[VOLUME_CC07]);
 
 	// --- calculate the final raw gain value
 	//     multiply the various gains together: MIDI Velocity * EG Mod * Amp Mod * gain_dB (from GUI, next code line)
-	gainRaw = midiVelocityGain * modulators->modulationInputs[kEGMod] * ampMod;
+	gainRaw = midiVelocityGain * modulators->modulationInputs[kEGMod] * ampMod * expression_mod;
 
 	// --- apply final output gain
 	if (parameters->gain_dB > kMinAbsoluteGain_dB) 
@@ -67,7 +69,7 @@ bool DCA::update(bool updateAllModRoutings)
 	//	gainRaw = 0.0;
 	//}
 
-	if (noteTimer.timerExpired())
+	if (noteTimer.timerExpired() && parameters->randomNotes)
 	{
 		gainRaw = 0.0;	
 		if (noteFlag) // right as timer is up
@@ -93,10 +95,10 @@ bool DCA::update(bool updateAllModRoutings)
 			noteFlag = true;
 		}
 	}
-	else
+	/*else
 	{
 		gainRaw = 1.0;
-	}
+	}*/
 
 	// --- is mute ON? 0 = OFF, 1 = ON
 	if (parameters->mute) gainRaw = 0.0;

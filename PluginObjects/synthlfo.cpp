@@ -12,6 +12,7 @@ bool SynthLFO::update(bool updateAllModRoutings)
 		return true;
 
 	// add modulation input here
+	
 
 	double range = (20.0 - 0.02) / 2.0;
 	double bipolarFMod = modulators->modulationInputs[kFrequencyMod];
@@ -21,6 +22,7 @@ bool SynthLFO::update(bool updateAllModRoutings)
 
 	phaseInc = total_freq / sampleRate;
 	
+	// parameters->outputAmplitude = modulators->modulationInputs[kUnipolarMod];
 
 	return true;
 }

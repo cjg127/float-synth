@@ -100,6 +100,7 @@ enum modDestination
 	// --- DCA (add more here)
 	kDCA_EGMod, // EG Input
 	kDCA_AmpMod,// Amp Mod Input
+	kDCA_ExpMod,
 	kDCA_SampleHoldMod,
 
 	// --- remain last, will always be the size of modulator array
@@ -358,10 +359,13 @@ protected:
 
 		// --- destinations
 		modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
+		modDestinationData[kLFO1_depth] = &(lfo1->getModulators()->modulationInputs[kUnipolarMod]);
 		modDestinationData[kOsc1_fo] = &(osc1->getModulators()->modulationInputs[kBipolarMod]);
 		modDestinationData[kOsc1_fo_ExpMod] = &(osc1->getModulators()->modulationInputs[kUnipolarMod]);
 		modDestinationData[kDCA_EGMod] = &(dca->getModulators()->modulationInputs[kEGMod]);
 		modDestinationData[kDCA_AmpMod] = &(dca->getModulators()->modulationInputs[kMaxDownAmpMod]);
+		modDestinationData[kDCA_ExpMod] = &(dca->getModulators()->modulationInputs[kUnipolarMod]);
+	
 
 		// modDestinationData[kLFO1_fo] = &(lfo1->getModulators()->modulationInputs[kFrequencyMod]);
 

@@ -34,7 +34,8 @@ enum controlID {
 	lfo2Depth = 33,
 	xSlew = 2,
 	ySlew = 3,
-	zSlew = 4
+	zSlew = 4,
+	randomLengthEnable = 27
 };
 
 	// **--0x0F1F--**
@@ -148,6 +149,9 @@ private:
 
 	int lfo2Waveform = 0;
 	enum class lfo2WaveformEnum { Triangle,Sin,Saw,RSH,QRSH,Noise,QRNoise };	// to compare: if(compareEnumToInt(lfo2WaveformEnum::Triangle, lfo2Waveform)) etc... 
+
+	int randomLengthEnable = 0;
+	enum class randomLengthEnableEnum { SWITCH_OFF,SWITCH_ON };	// to compare: if(compareEnumToInt(randomLengthEnableEnum::SWITCH_OFF, randomLengthEnable)) etc... 
 
 	// **--0x1A7F--**
     // --- end member variables

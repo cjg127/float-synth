@@ -15,6 +15,8 @@ struct DCAParameters
 		gain_dB = params.gain_dB;
 		mute = params.mute; 
 		panValue = params.panValue;
+		randomNotes = params.randomNotes;
+
 
 		return *this;
 	}
@@ -23,6 +25,7 @@ struct DCAParameters
 	double gain_dB = 0.0;		// --- for per-voice gain control (not same as master MIDI volume)
 	bool mute = false;
 	double panValue = 0.0;		// --- [-1, +1] --> [left -> right]
+	bool randomNotes = false;
 };
 
 /**
